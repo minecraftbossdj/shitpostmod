@@ -36,19 +36,20 @@ import org.slf4j.Logger;
 public class Shitpostmod {
 
 
-    public static void registerAll() {
+    public static void registerAll(IEventBus bus) {
         // Reference all registry classes here
+        SDraconicRegistration.register(bus);
         SBlockRegistration.register();
         SBlockEntityRegistration.register();
         SPeripheralRegistration.register();
-        SItemRegistration.register();
-        SCreativeTabRegistration.register();
+        SItemRegistration.register(bus);
+        SCreativeTabRegistration.register(bus);
     }
 
     // Define mod id in a common place for everything to reference
     public static final String MODID = "shitpostmod";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final Registrate REGISTRATE = Registrate.create(Shitpostmod.MODID);
 
@@ -58,7 +59,7 @@ public class Shitpostmod {
     public Shitpostmod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        registerAll();
+        registerAll(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

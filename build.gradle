@@ -118,12 +118,17 @@ minecraft {
 
             arg("-mixin.config=create.mixins.json")
 
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+
 
         }
 
         server {
             property 'forge.enabledGameTestNamespaces', mod_id
             args '--nogui'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
         }
 
         // This run config launches GameTestServer and runs all registered gametests, then exits.
@@ -139,6 +144,9 @@ minecraft {
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
         }
     }
 }
@@ -211,6 +219,9 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
+    maven { url 'https://squiddev.cc/maven/' }
+
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
@@ -219,6 +230,9 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
+    maven { url = "https://maven.covers1624.net/" }
+    maven { url = "https://maven.blamejared.com/" }
+    maven { url = "https://maven.theillusivec4.top/" }
 }
 
 dependencies {
@@ -237,8 +251,22 @@ dependencies {
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
     implementation("io.github.llamalad7:mixinextras-forge:0.4.1")
 
-    implementation fg.deobf("curse.maven:cc-tweaked-282001:4740605")
+    implementation fg.deobf("cc.tweaked:cc-tweaked-1.20.1-core:${cc_version}")
+    implementation fg.deobf("cc.tweaked:cc-tweaked-1.20.1-core-api:${cc_version}")
+    implementation fg.deobf("cc.tweaked:cc-tweaked-1.20.1-common-api:${cc_version}")
+    implementation fg.deobf("cc.tweaked:cc-tweaked-1.20.1-forge:${cc_version}")
+    implementation fg.deobf("cc.tweaked:cc-tweaked-1.20.1-forge-api:${cc_version}")
 
+    implementation fg.deobf("com.brandon3055.brandonscore:BrandonsCore:${minecraft_version}-${bcore_version}:universal")
+    implementation fg.deobf("io.codechicken:CodeChickenLib:${minecraft_version}-${ccl_version}:universal")
+
+    runtimeOnly(fg.deobf("io.codechicken:EnderStorage:${minecraft_version}-${ender_storage_version}:universal"))
+
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+
+    implementation fg.deobf("com.brandon3055.draconicevolution:Draconic-Evolution:${minecraft_version}-${de_version}:universal")
+    
     jarJar(group: 'com.tterrag.registrate', name: 'Registrate', version: "[MC1.19.3,MC1.20)")
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings

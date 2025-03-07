@@ -1,5 +1,13 @@
 {
   "block.shitpostmod.boner_block": "Boner Block",
   "block.shitpostmod.test_block": "Test Peripheral",
-  "shitpostmod.blocks": "Shitpostmod: Blocks"
+  "item.shitpostmod.test_chestpiece": "Test Chestpiece",
+  "item.shitpostmod.slime_sword": "Slime Sword",
+  "item.shitpostmod.cursed_chain": "Cursed Chain",
+  "itemGroup.shitpostmod.blocks": "Shitpostmod: Blocks",
+  "itemGroup.shitpostmod.weapons": "Shitpostmod: Weapons",
+  "itemGroup.shitpostmod.misc_items": "Shitpostmod: Misc Items",
+  "itemGroup.shitpostmod.peripherals": "Shitpostmod: Peripherals",
+  "itemGroup.shitpostmod.create": "Shitpostmod: Create",
+  "itemGroup.shitpostmod.draconic": "Shitpostmod: Draconic"
 }
